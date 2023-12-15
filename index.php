@@ -86,16 +86,22 @@ echo $hash_3 . "<br><br><br><br>";
 
 // saisie dans le formulaire de login
 $saisie = "myPassword1234";
-echo "Dans le cas où les deux passwords se correspondent :<br>";
 $check = password_verify($saisie, $hash);
+$subscriber = "Wizard";
+
+
+echo "Dans le cas où les deux passwords se correspondent :<br>";
 if (password_verify($saisie, $hash)) {
-    echo "Mot de passe correct : true";
+    $_SESSION["subscriber"] = $subscriber;
+    echo $subscriber." is online !<br>";
+    echo "Mot de passe correct (true)";
 } else {
-    echo "Mot de passe incorrect : false";
+    echo "Mot de passe incorrect (false)";
 }
 echo "<br><br>Dans le cas où les deux passwords ne se correspondent pas :<br>";
 if (password_verify($saisie, $hash_3)) {
-    echo "Mot de passe correct : true";
+    echo "Mot de passe correct ! (true)";
+    $_SESSION["subscriber"] = $subscriber;
 } else {
-    echo "Mot de passe incorrect : false";
+    echo "Mot de passe incorrect ! (false)";
 }
