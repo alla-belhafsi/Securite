@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Register</title>
 </head>
 <body>
     <h1>SIGN UP</h1>
@@ -19,8 +19,8 @@
 
         <label for="pass2">Confirm your Password</label>
         <input type="password" name="pass2" id="pass2">
-        
-        <input type="submit" value="SIGN UP">
+
+        <input type="submit" name="submit" value="SIGN UP">
     </form>
 </body>
 </html>

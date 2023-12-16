@@ -103,5 +103,7 @@ if (password_verify($saisie, $hash_3)) {
     echo "Mot de passe correct ! (true)";
     $_SESSION["subscriber"] = $subscriber;
 } else {
-    echo "Mot de passe incorrect ! (false)";
+    echo "Mot de passe ou utilisateur incorrect ! (false)";
 }
+
+// Dans le cas du forum par exemple, header("Location: index.php?ctrl=home&action=index&id=");
