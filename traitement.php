@@ -178,8 +178,9 @@ if(isset($_GET["action"])) {
                 ]);
         
                 // Effacer toutes les données de la session
-                $_SESSION = array();
-                session_destroy();
+                unset($_SESSION["subscriber"]);
+                // $_SESSION = array();
+                // session_destroy();
         
                 // Rediriger l'utilisateur vers la page de connexion ou une autre page appropriée
                 header("Location: login.php");
