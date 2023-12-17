@@ -76,7 +76,7 @@
     
         // Afficher l'heure au format souhaité (00h00)
         $timeLogout = $lastLogout->format('H\hi');
-        $pseudo = $subscriber['pseudonym'];
+        
         ?>
         <p>
             Dernière déconnexion : <?php echo $formattedDateLogout . " à " . $timeLogout; ?>
