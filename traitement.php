@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 if(isset($_GET["action"])) {
@@ -64,7 +63,7 @@ if(isset($_GET["action"])) {
             break; 
 
         case "login";
-
+        
             // Connexion à l'application
             if($_POST["submit"]) {
                 // Connexion à ma base de données
@@ -97,9 +96,10 @@ if(isset($_GET["action"])) {
 
                         // Si password est correct
                         if(password_verify($password, $hash)) {
+                            
                             // Mettre à jour l'heure de la dernière connexion dans la base de données
                             $lastLogin = date("Y-m-d H:i:s");
-                            // Assurez-vous d'avoir une colonne 'last_login' dans votre table 'subscriber'
+
                             $updateLastLogin = $pdo->prepare("
                             UPDATE subscriber 
                             SET last_login = :last_login 
@@ -148,23 +148,15 @@ if(isset($_GET["action"])) {
         break;
 
         case "logout":
+            
+            if (isset($_SESSION["subscriber"])) {
 
-            if ($_GET["action"] === "logout") {
-                session_start(); // Démarrez la session si ce n'est pas déjà fait
-        
-                // Vérifiez si l'utilisateur est connecté
-                if (!isset($_SESSION["subscriber"])) {
-                    // Redirigez vers la page de connexion s'il n'est pas connecté
-                    header("Location: login.php");
-                    exit;
-                }
-        
                 // Récupérez les informations de l'utilisateur depuis la session
                 $subscriber = $_SESSION["subscriber"];
-        
+            
                 // Connexion à la base de données
                 $pdo = new PDO("mysql:host=localhost;dbname=php_hash;charset=utf8", "root", "");
-        
+            
                 // Mettre à jour l'heure de la dernière déconnexion dans la base de données
                 $lastLogout = date("Y-m-d H:i:s");
                 $updateLastLogout = $pdo->prepare("
@@ -176,21 +168,19 @@ if(isset($_GET["action"])) {
                     "last_logout" => $lastLogout,
                     "id_subscriber" => $subscriber['id_subscriber']
                 ]);
-        
-                // Effacer toutes les données de la session
+
+                // Effacer toutes les données de la session pour une déconnexion manuelle
                 unset($_SESSION["subscriber"]);
-                // $_SESSION = array();
-                // session_destroy();
-        
-                // Rediriger l'utilisateur vers la page de connexion ou une autre page appropriée
-                header("Location: login.php");
+            
+                // Rediriger vers la page de connexion après déconnexion manuelle
+                header("Location: home.php");
                 exit;
             }
-        break;
-
-        case "profile":
-            header("Location: profile.php");
+        
+            // Rediriger vers la page de connexion ou une autre page appropriée
+            header("Location: home.php");
             exit;
+
         break;
     }   
 }

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -7,22 +6,26 @@
     <title>Home</title>
 </head>
 <body>
+    <h1>HOME</h1>
     <?php
     session_start();
     
     // Vérifiez si l'utilisateur n'est pas connecté
-    if (!isset($_SESSION["subscriber"])) {
-        // Rediriger vers la page de connexion s'il n'est pas connecté
-        header("Location: login.php");
+    if (!isset($_SESSION["subscriber"])) { ?>
+        
+        <p><a href="traitement.php?action=login">LOGIN</a></p>
+        <p><a href="traitement.php?action=register">SIGN UP</a></p>
+
+        <?php
         exit;
     } else {
-    
+        
     // Récupérez les informations de l'utilisateur depuis la session
     $subscriber = $_SESSION["subscriber"];
     $loginCount = $subscriber["login_count"];
     ?>
 
-    <h1>Welcome to your Dashboard <?php echo $subscriber['pseudonym']; ?>!</h1>
+    <h2>Welcome to your Dashboard <?php echo $subscriber['pseudonym']; ?>!</h2>
     
     <?php
     if($loginCount === null || $loginCount == 0) {  
@@ -65,13 +68,13 @@
         // Définir la localisation en français
         setlocale(LC_TIME, 'fr_FR.utf8', 'fra'); 
     
-        // Créer un formateur de date pour le français
+        // Créer un formateur de date pour la langue française
         $formatterLogout = new IntlDateFormatter('fr_FR', IntlDateFormatter::FULL, IntlDateFormatter::NONE); 
     
         // Formater la date avec la première lettre en majuscule pour le jour et le mois
         $formattedDateLogout = ucwords($formatterLogout->format($lastLogout));
     
-        // Afficher l'heure au format souhaité (14h04)
+        // Afficher l'heure au format souhaité (00h00)
         $timeLogout = $lastLogout->format('H\hi');
         $pseudo = $subscriber['pseudonym'];
         ?>
@@ -86,7 +89,7 @@
     <p><a href="traitement.php?action=profile">Profile</a></p>
     <p><a href="traitement.php?action=settings">Settings</a></p>
 
-    <!-- Bouton de déconnexion -->
+    <!-- Lien de déconnexion -->
     <p><a href="traitement.php?action=logout">Logout</a></p>
 
     <?php } ?>
